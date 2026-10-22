@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#182d2b" />
+  <meta name="description" content="2026年10月25日香港一日游交互式行程：西九龙、旺角、土瓜湾、启德演唱会。" />
+  <title>HK FIELDNOTES · 10.25 香港一日行程</title>
+  <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin />
+  <style>
+  :root{--bg:#f4f5f1;--surface:#fff;--ink:#19312e;--muted:#7d8c86;--sub:#64746e;--line:#e4eae5;--sage:#347769;--sage-soft:#ecf5ef;--terra:#e1704d;--terra-soft:#fbf0ea;--gold:#d4aa61;--danger:#bc5044;--nav:#182d2b;--shadow:0 16px 44px rgba(28,54,47,.07);--radius:18px;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft Yahei",sans-serif}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;color:var(--ink);background:var(--bg);font-size:14px;-webkit-font-smoothing:antialiased}
+  button,input,select{font:inherit}
+  button{cursor:pointer}
+  button:disabled{cursor:not-allowed;opacity:.4}
+  a{color:inherit;text-decoration:none}
+  button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #eca17e;outline-offset:3px}
+  .app{display:grid;grid-template-columns:224px minmax(450px,1.15fr) minmax(380px,.94fr);min-height:100vh;max-width:1920px;margin:0 auto}
+  .sidebar{background:var(--nav);color:#ecf4e9;position:sticky;top:0;min-height:100vh;height:100vh;padding:31px 17px 22px;display:flex;flex-direction:column;overflow:auto;z-index:30}
+  .brand{display:flex;gap:12px;align-items:center;margin:0 9px 49px}
+  .brand-icon{height:41px;width:41px;display:grid;place-items:center;border:1px solid #5c8877;border-radius:13px;color:#c8f4d7;background:#29443e}
+  .brand-text{font-size:17px;letter-spacing:.15em;font-weight:790;line-height:1.08}
+  .brand-text span{display:block;font-size:9px;color:#93b2a6;letter-spacing:.26em;font-weight:600;margin-top:5px}
+  .side-label{font-size:10px;color:#89a59a;letter-spacing:.16em;text-transform:uppercase;margin:0 12px 12px}
+  .side-nav{display:flex;flex-direction:column;gap:5px;margin-bottom:36px}
+  .side-nav button{display:flex;gap:13px;align-items:center;width:100%;background:transparent;border:0;border-radius:11px;padding:13px 14px;color:#b3c7bd;text-align:left;font-size:13px}
+  .side-nav button:hover,.side-nav button.active{background:#35544b;color:#fff}
+  .side-nav button.active::after{content:"";width:6px;height:6px;background:#f5ab80;border-radius:50%;margin-left:auto}
+  .side-day{background:#27423b;border:1px solid #426358;border-radius:16px;padding:17px 16px;margin:0 5px 22px}
+  .side-day .mini{font-size:10px;color:#aac5b7;letter-spacing:.13em}
+  .side-day b{font-size:29px;letter-spacing:-.05em;display:block;line-height:1.1;margin:11px 0 2px}
+  .side-day small{color:#b8d4c6;font-size:11px}
+  .side-day .line{height:1px;background:#4d6b5e;margin:15px 0}
+  .side-mini{display:flex;justify-content:space-between;font-size:11px;color:#b5c9be;padding:4px 0}
+  .side-mini strong{color:#fff;font-size:12px}
+  .side-foot{margin-top:auto;border-top:1px solid #37534a;padding:20px 14px 0;color:#8ba99a;font-size:11px;line-height:1.75}
+  .side-foot a{text-decoration:underline;text-underline-offset:2px}
+  .main{padding:34px clamp(20px,2.5vw,49px) 66px;min-width:0}
+  .topline{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:23px}
+  .breadcrumbs{font-size:11px;letter-spacing:.04em;color:#8c9b94;display:flex;gap:9px;align-items:center}
+  .breadcrumbs b{color:#44645b;font-weight:650}
+  .pill{font-size:11px;font-weight:700;color:#286a59;border:1px solid #cfe3d9;background:#eef8f1;padding:9px 12px;border-radius:100px;white-space:nowrap}
+  .pill .pulse{display:inline-block;width:7px;height:7px;background:#6dae80;border-radius:50%;margin-right:7px}
+  .hero{background:#21443c;min-height:230px;border-radius:22px;position:relative;overflow:hidden;padding:32px 31px 24px;color:#fff;isolation:isolate}
+  .hero::after{content:"";position:absolute;width:300px;height:300px;border:1px solid #537568;border-radius:50%;right:-134px;top:-164px;opacity:.5;box-shadow:0 0 0 43px rgba(140,183,157,.07),0 0 0 86px rgba(140,183,157,.055);z-index:-1}
+  .hero-copy{position:relative;z-index:2;max-width:90%}
+  .hero-kicker{font-size:10px;font-weight:800;letter-spacing:.2em;color:#eab58c}
+  .hero h1{font-size:clamp(27px,3.1vw,42px);line-height:1.15;letter-spacing:-.045em;margin:11px 0 13px;font-weight:790}
+  .hero p{font-size:12px;color:#c4dbce;margin:0;line-height:1.8}
+  .hero-tags{display:flex;gap:8px;margin-top:25px;flex-wrap:wrap}
+  .hero-tags span{font-size:10px;border:1px solid rgba(224,240,228,.25);padding:8px 11px;border-radius:60px;background:#31564a}
+  .hero-illustration{position:absolute;right:-7px;bottom:-1px;width:49%;max-width:340px;opacity:.95;pointer-events:none}
+  .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:17px;margin-bottom:33px}
+  .stat{background:var(--surface);border:1px solid #e9eee9;border-radius:15px;padding:17px 15px;min-width:0}
+  .stat .stat-title{font-size:10px;color:#809087;display:flex;align-items:center;gap:6px;white-space:nowrap}
+  .stat strong{display:block;font-size:22px;letter-spacing:-.045em;margin-top:8px;font-weight:780;white-space:nowrap}
+  .stat strong small{font-weight:600;font-size:11px;color:#859388;letter-spacing:0}
+  .section-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:0 0 17px}
+  .eyebrow{font-size:10px;color:#cc7a53;letter-spacing:.16em;font-weight:750;margin-bottom:6px}
+  .section-head h2{font-size:21px;letter-spacing:-.035em;margin:0}
+  .section-head .meta{font-size:11px;color:var(--muted)}
+  .toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
+  .tabgroup{display:flex;padding:4px;background:#e9eeeb;border-radius:12px;gap:3px}
+  .tab{border:none;background:transparent;border-radius:9px;padding:8px 12px;font-size:11px;font-weight:600;color:#788982;white-space:nowrap}
+  .tab.active{background:#fff;box-shadow:0 2px 7px rgba(12,40,26,.08);color:#264d41}
+  .search{flex:1;min-width:126px;position:relative}
+  .search input{width:100%;border:1px solid #e1e9e3;background:#fff;border-radius:11px;padding:11px 10px 11px 34px;font-size:12px;color:#243b30}
+  .search svg{position:absolute;top:12px;left:12px;color:#8da499}
+  .alert{display:flex;gap:10px;align-items:flex-start;background:#fff8ed;border:1px solid #f2debc;border-radius:14px;padding:15px;margin-bottom:19px}
+  .alert svg{flex:none;color:#b9773d}
+  .alert b{font-size:12px;color:#7a5229;display:block;margin-bottom:4px}
+  .alert p{font-size:11px;line-height:1.6;color:#947955;margin:0}
+  .timeline{display:flex;flex-direction:column;gap:0;position:relative;padding-top:1px}
+  .timeline-line{width:2px;position:absolute;left:71px;top:16px;bottom:15px;background:#e0e9e2;z-index:0}
+  .step{display:grid;grid-template-columns:54px 17px minmax(0,1fr);gap:9px;position:relative;margin-bottom:9px;align-items:start}
+  .time-col{text-align:right;padding-top:18px;white-space:nowrap}
+  .time-col .start{font-size:12px;color:#3b6455;font-weight:760;font-variant-numeric:tabular-nums}
+  .time-col .end{font-size:10px;color:#9aa8a0;margin-top:3px;font-variant-numeric:tabular-nums}
+  .rail{display:flex;justify-content:center;padding-top:20px;z-index:1}
+  .rail-dot{height:12px;width:12px;background:#fff;border:3px solid #88ab9a;border-radius:50%;box-shadow:0 0 0 4px var(--bg)}
+  .rail-dot.critical{background:#d96e50;border-color:#d96e50}
+  .rail-dot.done{background:#3a806a;border-color:#3a806a}
+  .stop-card{border:1px solid #e3e9e3;border-radius:15px;background:#fff;box-shadow:0 3px 9px rgba(25,44,29,.018);overflow:hidden;transition:box-shadow .2s,border-color .2s}
+  .stop-card:hover{border-color:#c4d5c8}
+  .stop-card.selected{border-color:#79a999;box-shadow:0 0 0 2px rgba(56,130,104,.10),0 8px 22px rgba(23,65,45,.065)}
+  .stop-card.done{opacity:.78}
+  .stop-card.locked{background:#f1f9f4;border-color:#cee3d5}
+  .stop-card.uncertain{border-left:3px solid #dfad68}
+  .stop-card.dragging{opacity:.5;transform:scale(.98)}
+  .stop-hit{display:flex;align-items:center;gap:12px;padding:14px 14px 12px;width:100%;text-align:left;background:none;border:0;min-width:0}
+  .stop-n{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;background:#edf4ef;border-radius:10px;color:#43775f;font-size:11px;font-weight:850;font-variant-numeric:tabular-nums}
+  .stop-card.locked .stop-n{background:#d8e9df}
+  .stop-desc{min-width:0;flex:1}
+  .stop-title{font-size:13px;font-weight:780;color:#19382f;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+  .stop-sub{font-size:10px;color:#8b9990;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .stop-chev{color:#8ca298;transition:transform .2s}
+  .stop-card.selected .stop-chev{transform:rotate(180deg)}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 14px 60px;align-items:center}
+  .chip{font-size:9px;border-radius:5px;padding:5px 7px;font-weight:700;background:#f1f4f1;color:#71847b;white-space:nowrap}
+  .chip.coffee{background:#fff4e8;color:#a56e3c}.chip.shop{background:#eaf1fc;color:#5d78a7}.chip.food{background:#f8eeea;color:#a16c50}.chip.event{background:#fcebea;color:#ac574b}
+  .chip.uncertain{background:#fff1d7;color:#ac782d}.chip.fixed{background:#e0f1e8;color:#3b8464}.chip.open{background:#eaf6ea;color:#548d62}
+  .stop-details{padding:12px 15px 15px;border-top:1px dashed #e6ede6;background:#fcfdfb;display:none}
+  .stop-card.selected .stop-details{display:block}
+  .detail-row{display:flex;gap:9px;align-items:flex-start;font-size:11px;color:#6a7d71;line-height:1.6;margin:4px 0 10px}
+  .detail-row svg{margin-top:1px;flex:none}
+  .detail-note{font-size:11px;color:#516d5e;line-height:1.7;margin:8px 0 13px}
+  .actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid #dce6df;border-radius:9px;background:#fff;color:#3c5c4e;padding:9px 10px;font-size:10px;font-weight:750;line-height:1;white-space:nowrap}
+  .btn:hover{background:#eff6f0}
+  .btn.dark{background:#254a40;color:#fff;border-color:#254a40}
+  .btn.dark:hover{background:#376354}
+  .btn.soft{background:#f5f8f5}
+  .btn.warn{border-color:#f0d7cb;background:#fff6f0;color:#9c5f49}
+  .duration{margin:11px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:#688076}
+  .counter{display:flex;gap:2px;background:#f0f5f0;border-radius:10px;padding:3px;align-items:center}
+  .counter button{border:0;background:#fff;border-radius:7px;color:#416455;font-weight:850;width:25px;height:26px;line-height:1;font-size:15px}
+  .counter span{min-width:45px;text-align:center;color:#2e5645;font-size:11px;font-weight:800}
+  .transfer{display:grid;grid-template-columns:54px 17px 1fr;gap:9px;margin:2px 0 11px}
+  .transfer .t-note{background:#edf0eb;border-radius:9px;padding:11px 12px;color:#789083;font-size:10px;display:flex;align-items:center;gap:8px;justify-content:space-between;line-height:1.5}
+  .transfer .t-note strong{color:#52715f;font-weight:760}
+  .transfer .t-rail{width:2px;background:#dee9e1;height:100%;margin-left:7.5px}
+  .empty{padding:28px;border:1px dashed #d7e3d7;border-radius:15px;color:#789084;text-align:center;font-size:12px}
+  .candidate{margin-top:20px;border:1px dashed #e1ca9e;border-radius:15px;background:#fffcf5;padding:18px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+  .candidate strong{font-size:12px;color:#765531}
+  .candidate p{font-size:11px;color:#9b815b;line-height:1.5;margin:5px 0 0}
+  .cutoff{margin-top:24px;background:#e9f2eb;padding:20px;border-radius:16px;display:flex;gap:14px;align-items:flex-start}
+  .cutoff b{font-size:12px;display:block;margin:2px 0 5px}
+  .cutoff p{font-size:11px;color:#658476;line-height:1.7;margin:0}
+  .bottom-note{font-size:10px;line-height:1.8;color:#9baaa0;margin-top:25px}
+  .map-panel{position:sticky;top:0;height:100vh;min-width:0;border-left:1px solid #e0e8e2;background:#edf1ed;padding:30px 26px;display:flex;flex-direction:column;gap:13px}
+  .map-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .map-head small{font-size:10px;letter-spacing:.14em;font-weight:800;color:#8d9c93;display:block;margin-bottom:6px}
+  .map-head h2{font-size:18px;font-weight:800;letter-spacing:-.035em;margin:0}
+  .square-btn{height:35px;width:35px;display:grid;place-items:center;background:#fff;border:1px solid #dfe8e0;border-radius:10px;color:#587265}
+  .map-mode{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .mode-toggle{display:flex;border:1px solid #dbe5dc;border-radius:10px;background:#f6faf5;padding:3px;gap:1px}
+  .mode-toggle button{background:transparent;border:0;border-radius:8px;padding:8px 12px;font-size:10px;font-weight:750;color:#83998c}
+  .mode-toggle button.active{background:#fff;color:#2c654f;box-shadow:0 2px 6px rgba(15,49,29,.08)}
+  .legend{font-size:10px;color:#8c9e94}
+  .map-viewport{position:relative;flex:1;min-height:290px;background:#e0eae2;border:1px solid #d8e4d9;border-radius:17px;overflow:hidden}
+  #leafletMap,#schematicMap{position:absolute;inset:0;height:100%;width:100%}
+  #leafletMap{z-index:2;display:none;background:#dfeae0}
+  #schematicMap{z-index:1;display:flex;align-items:center;justify-content:center;background:#e9eee7}
+  #schematicMap svg{height:100%;width:100%}
+  .map-overlay-top{position:absolute;top:12px;left:12px;z-index:450;background:rgba(255,255,255,.94);padding:9px 11px;border-radius:10px;box-shadow:0 3px 14px #2c473011;font-size:10px;font-weight:700;color:#426251;pointer-events:none}
+  .map-foot{position:absolute;bottom:12px;left:12px;z-index:450;background:rgba(255,255,255,.95);padding:7px 9px;border-radius:8px;color:#799087;font-size:9px;max-width:calc(100% - 24px);pointer-events:none}
+  .leaflet-container{font:inherit}
+  .leaflet-control-attribution{font-size:8px!important}
+  .pin-label{background:#fff;border:2px solid #275b4a;color:#275b4a;border-radius:10px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;box-shadow:0 3px 14px #172d2b33;font-size:10px;font-weight:900}
+  .pin-label.selected{background:#ef8260;color:#fff;border-color:#fff;transform:scale(1.16)}
+  .pin-label.done{background:#c9d9c9;color:#56715d;border-color:#fff}
+  .map-info{background:#fff;border:1px solid #e1eae0;border-radius:15px;padding:17px 17px 14px}
+  .map-info-top{display:flex;align-items:center;gap:7px;justify-content:space-between}
+  .map-info-title{font-size:11px;font-weight:800;color:#2d5143}
+  .buffer-time{font-size:24px;font-weight:850;color:#37775e;letter-spacing:-.055em;line-height:1.2}
+  .buffer-time.warn{color:#c26b43}.buffer-time.bad{color:#b95047}
+  .bar-bg{height:6px;background:#e9efeb;border-radius:8px;margin:12px 0 7px;overflow:hidden}
+  .bar-inner{height:100%;background:#6bac8b;width:55%;border-radius:8px;transition:width .25s}
+  .map-info p{margin:0;color:#85988b;font-size:10px;line-height:1.7}
+  .time-sim{padding:16px 17px;background:#fff;border:1px solid #e1eae0;border-radius:15px}
+  .sim-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .sim-head b{font-size:11px}.sim-head em{font-style:normal;font-size:10px;color:#8b9b91}
+  .time-sim input[type=range]{width:100%;accent-color:#347769;margin:14px 0 6px;cursor:pointer}
+  .sim-marks{display:flex;justify-content:space-between;color:#99a99e;font-size:9px}
+  .sim-status{font-size:10px;color:#678576;line-height:1.6;margin-top:9px;min-height:17px}
+  .shortcuts{display:flex;gap:8px}
+  .shortcuts .btn{flex:1;padding:12px 7px}
+  .export-menu{position:relative}
+  .export-popup{position:absolute;right:0;top:39px;border:1px solid #dce8de;border-radius:12px;box-shadow:var(--shadow);background:#fff;min-width:175px;padding:6px;z-index:50;display:none}
+  .export-popup.visible{display:block}
+  .export-popup button{border:0;background:transparent;text-align:left;display:block;width:100%;padding:11px 12px;border-radius:8px;color:#426251;font-size:11px}
+  .export-popup button:hover{background:#eff6f0}
+  .toast{position:fixed;z-index:500;bottom:25px;left:50%;transform:translate(-50%,18px);opacity:0;pointer-events:none;background:#233d34;color:#fff;padding:12px 20px;border-radius:12px;font-size:12px;box-shadow:0 10px 30px #14251c38;transition:all .2s ease;max-width:calc(100vw - 24px);text-align:center}
+  .toast.show{transform:translate(-50%,0);opacity:1}
+  .offline-message{font-size:10px;color:#778d7e}
+  .kicker-dot{display:inline-block;width:6px;height:6px;background:#e89c70;border-radius:50%;margin-right:5px}
+  .mobile-header{display:none}
+  @media(max-width:1500px){.app{grid-template-columns:183px minmax(420px,1.14fr) minmax(355px,.95fr)}.sidebar{padding-left:10px;padding-right:10px}.main{padding:29px 26px 60px}.map-panel{padding:25px 19px}}
+  @media(max-width:1190px){.app{grid-template-columns:minmax(440px,1.08fr) minmax(355px,.92fr)}.sidebar{display:none}.main{padding:30px clamp(20px,3vw,42px) 50px}.hero{min-height:210px}}
+  @media(max-width:860px){.app{display:flex;flex-direction:column}.mobile-header{display:flex;align-items:center;justify-content:space-between;background:var(--nav);color:#fff;padding:13px 20px;gap:10px}.mobile-header b{letter-spacing:.15em;font-size:12px}.mobile-header span{font-size:10px;color:#c5d9cb}.main{padding:22px 20px 30px}.map-panel{position:relative;height:auto;border-left:0;border-top:1px solid #dfe8df;padding:24px 20px 35px}.map-viewport{height:min(60vh,480px);flex:none}.map-info{margin:0}.hero{padding:27px}.hero-illustration{width:45%}}
+  @media(max-width:520px){.main{padding:18px 14px 32px}.hero{padding:24px 22px 18px;min-height:216px;border-radius:17px}.hero h1{font-size:29px}.hero-copy{max-width:100%}.hero p{font-size:11px;max-width:65%}.hero-illustration{width:48%;right:-14px;opacity:.58}.hero-tags{gap:5px;margin-top:23px}.hero-tags span{font-size:9px;padding:7px 8px}.stats{gap:6px;margin-top:11px;margin-bottom:25px}.stat{padding:13px 10px;border-radius:12px}.stat strong{font-size:19px}.stat .stat-title{font-size:9px}.section-head h2{font-size:19px}.toolbar{align-items:stretch}.tabgroup{width:100%;justify-content:space-between}.tab{flex:1;padding:9px 6px}.search{min-width:100%}.timeline-line{left:61px}.step,.transfer{grid-template-columns:45px 17px minmax(0,1fr);gap:5px}.time-col .start{font-size:11px}.time-col .end{font-size:9px}.stop-hit{padding:12px 10px 9px;gap:9px}.stop-title{font-size:12px}.stop-n{width:28px;flex-basis:28px;height:28px;font-size:10px}.badges{padding:0 9px 12px 47px;gap:4px}.chip{font-size:9px;padding:4px 5px}.detail-row{font-size:10px}.map-panel{padding:22px 14px 30px}.candidate{padding:14px}.topline .pill{font-size:9px}.map-viewport{height:380px}}
+  @media print{body{background:#fff}.sidebar,.mobile-header,.toolbar,.actions,.counter,.map-panel,.bottom-note,.topline .pill,.candidate button{display:none!important}.app{display:block}.main{padding:15px}.hero{background:#fff;color:#183d30;border:1px solid #cad7cd}.hero h1{color:#143f30}.hero p{color:#517667}.stat{border:1px solid #ddd}.stop-details{display:block!important}.step{break-inside:avoid}.stop-card{box-shadow:none}.stop-hit{pointer-events:none}}
+  </style>
+</head>
+<body>
+<div class="mobile-header"><div><b>HK / FIELDNOTES</b><span>　香港一日旅行</span></div><span>25 OCT 2026</span></div>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg></div><div class="brand-text">FIELDNOTES<span>HONG KONG / 2026</span></div></div>
+    <p class="side-label">WORKSPACE</p>
+    <nav class="side-nav" aria-label="页面导航">
+      <button class="active" data-scroll="hero"><span data-icon="compass"></span> 我的旅程</button>
+      <button data-scroll="itinerary"><span data-icon="list"></span> 当日日程</button>
+      <button data-scroll="mapTop"><span data-icon="map"></span> 交互地图</button>
+      <button id="sidebarShowCandidate"><span data-icon="bookmark"></span> 候选地点</button>
+    </nav>
+    <p class="side-label">TRIP OVERVIEW</p>
+    <div class="side-day"><div class="mini">SUNDAY · OCTOBER</div><b>25<span style="font-size:14px;letter-spacing:0"> / 10</span></b><small>只有一天，也要好好逛。</small><div class="line"></div><div class="side-mini"><span>行程起点</span><strong>09:00 西九龙</strong></div><div class="side-mini"><span>抵达时限</span><strong>18:00 启德</strong></div><div class="side-mini"><span>预定开演</span><strong>20:15</strong></div></div>
+    <div class="side-foot">使用你上传的香港 KML 点位<br>交互页面由独立代码制作<br>功能参考 <a href="https://github.com/liketrek/TREK" target="_blank" rel="noopener noreferrer">TREK</a>，非其官方应用。<br>地图 © OpenStreetMap contributors</div>
+  </aside>
+  <main class="main">
+    <div class="topline"><div class="breadcrumbs"><span>我的旅程</span><span>›</span><b>香港 · 一日探索</b></div><span class="pill"><span class="pulse"></span>专属行程 · 2026.10.25</span></div>
+    <section class="hero" id="hero" aria-label="旅行封面">
+      <div class="hero-copy"><div class="hero-kicker">A DAY WELL SPENT / 香港</div><h1>从西九龙，<br>一路走到启德。</h1><p>咖啡、独立书店、胶片店与演唱会。<br>把十二个收藏点，连成一段刚刚好的香港记忆。</p><div class="hero-tags"><span>◷　09:00 启程</span><span>◎　旺角 → 土瓜湾 → 启德</span><span>⚑　18:00 必达</span></div></div>
+      <svg class="hero-illustration" viewBox="0 0 325 240" aria-hidden="true"><defs><linearGradient id="bld" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#8ba99c"/><stop offset="1" stop-color="#567b69"/></linearGradient></defs><circle cx="262" cy="70" r="28" fill="#e7b987" opacity=".75"/><path d="M-4 225L35 225 35 170 64 170 64 198 88 198 88 141 110 141 110 110 123 110 123 141 136 141 136 191 149 191 149 148 170 148 170 90 189 90 189 148 211 148 211 171 221 171 221 105 241 105 241 70 257 70 257 105 282 105 282 153 295 153 295 191 330 191 330 240 -4 240Z" fill="url(#bld)" opacity=".56"/><path d="M2 227H330" stroke="#b8d3bb" stroke-width="1.5" opacity=".4"/><g stroke="#d1e4d4" opacity=".3"><path d="M96 153v46M103 153v46M177 105v47M184 105v47M232 123v38M248 109v35M272 119v28"/><path d="M93 168h27M93 181h27M173 124h19M223 140h32"/></g><path d="M30 215C88 170 118 213 174 166S270 175 301 117" fill="none" stroke="#e5aa85" stroke-dasharray="5 7" stroke-width="2.3" opacity=".94"/><circle cx="30" cy="215" r="7" fill="#e5aa85" stroke="#24483c" stroke-width="3"/><circle cx="175" cy="167" r="7" fill="#e5aa85" stroke="#24483c" stroke-width="3"/><circle cx="301" cy="117" r="10" fill="#e5aa85" stroke="#24483c" stroke-width="4"/><path d="m297 116 4 4 8-10" fill="none" stroke="#2b523f" stroke-width="2.5"/></svg>
+    </section>
+    <section class="stats" aria-label="行程概览">
+      <div class="stat"><div class="stat-title"><span data-icon="pin"></span>参与行程</div><strong><span id="statCount">11</span> <small>/ 12 站</small></strong></div>
+      <div class="stat"><div class="stat-title"><span data-icon="check"></span>打卡进度</div><strong id="statDone">0 <small>/ 11</small></strong></div>
+      <div class="stat"><div class="stat-title"><span data-icon="flag"></span>预计抵达</div><strong id="statArrival">17:45</strong></div>
+    </section>
+    <section id="itinerary">
+      <div class="section-head"><div><div class="eyebrow">YOUR DAY · SUNDAY 25 OCT</div><h2>当天行程</h2></div><div class="export-menu"><button class="btn" id="exportToggle" aria-haspopup="true" aria-expanded="false"><span data-icon="download"></span> 导出 <span data-icon="chevron-down"></span></button><div class="export-popup" id="exportPopup"><button data-export="md">↓ Markdown 行程</button><button data-export="ics">↓ 日历 .ics</button><button data-export="json">↓ JSON 数据</button><button data-export="kml">↓ KML 收藏路线</button><button data-export="print">打印 / 保存 PDF</button></div></div></div>
+      <div class="toolbar"><div class="tabgroup" role="tablist" aria-label="区域筛选"><button class="tab active" data-zone="all" role="tab" aria-selected="true">全部</button><button class="tab" data-zone="旺角" role="tab" aria-selected="false">旺角</button><button class="tab" data-zone="土瓜湾" role="tab" aria-selected="false">土瓜湾</button><button class="tab" data-zone="启德" role="tab" aria-selected="false">启德</button></div><label class="search"><svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input type="search" id="searchInput" placeholder="搜索地点" aria-label="搜索地点" /></label></div>
+      <div class="alert"><span data-icon="alert"></span><div><b>营业时间与地址提醒</b><p>界限书店 13:00 才开门；Color Space 可能有新旧门址差异，Ima Coffee 营业状态存在冲突。以店方当日确认及场馆指引为准。</p></div></div>
+      <div class="timeline" id="timeline"><div class="timeline-line"></div></div>
+      <div class="candidate" id="candidate"><div><strong>＋ 备选：Ima Coffee 伊間珈琲</strong><p>店铺状态冲突，默认不安排。确认营业后才建议加入。</p></div><button class="btn warn" id="candidateToggle">加入路线</button></div>
+      <div class="cutoff"><span data-icon="shield"></span><div><b>演出优先规则</b><p>最迟 14:00 离开旺角；17:15 前离开 AIRSIDE。若路线计算晚于 18:00，请使用右侧「演出保底」快速跳过可选站。所有时间均为计划估计，非实时交通 ETA。</p></div></div>
+      <div class="bottom-note">© 2026 Personal Hong Kong Day Plan. 地点坐标来自你的 KML；商户星期日营业时间依据 2026-10-22 核对的公开资料，临时停业可能改变。此作品借鉴 <a href="https://github.com/liketrek/TREK" target="_blank" rel="noopener">TREK</a> 的交互旅行规划理念，由独立代码实现；不包含 TREK 源代码、标识或服务端。路径线仅表示点位顺序。© OpenStreetMap contributors.</div>
+    </section>
+  </main>
+  <section class="map-panel" id="mapTop" aria-label="地图和抵达监控">
+    <div class="map-head"><div><small>YOUR ROUTE / 路线可视化</small><h2>香港 · 地图总览</h2></div><button class="square-btn" id="mapFit" title="显示整条路线" aria-label="显示整条路线"><span data-icon="maximize"></span></button></div>
+    <div class="map-mode"><div class="mode-toggle"><button class="active" data-mode="schematic">路线示意</button><button data-mode="street">街道地图</button></div><span class="legend">● 11 个计划停靠点</span></div>
+    <div class="map-viewport" id="mapViewport"><div id="schematicMap"></div><div id="leafletMap"></div><div class="map-overlay-top" id="mapMaplabel">香港 · 10.25 / 日程线路</div><div class="map-foot">路线连线是地理示意，不代表实际街道轨迹或交通时间。</div></div>
+    <div class="map-info" aria-live="polite"><div class="map-info-top"><span class="map-info-title"><span data-icon="flag"></span> 启德主场馆 · 18:00 前抵达</span><span class="chip fixed">不可跳过</span></div><div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:10px"><div class="buffer-time" id="bufferTime">余量 15 分钟</div><span style="color:#91a69a;font-weight:800;font-size:11px" id="bufferArrival">17:45 到达</span></div><div class="bar-bg"><div class="bar-inner" id="bufferBar"></div></div><p id="bufferMessage">当前计划在 18:00 前到达；请按现场交通与安检情况留足缓冲。</p></div>
+    <div class="time-sim"><div class="sim-head"><b>当天时间模拟</b><em id="simLabel">09:00</em></div><input type="range" min="540" max="1080" step="5" value="540" id="simRange" aria-label="模拟旅行当日时间" /><div class="sim-marks"><span>09:00</span><span>12:00</span><span>15:00</span><span>18:00</span></div><div class="sim-status" id="simStatus">拖动时间轴，查看对应的活动与下一站。</div></div>
+    <div class="shortcuts"><button class="btn soft" id="safeMode"><span data-icon="shield"></span> 演出保底</button><button class="btn" id="resetPlan"><span data-icon="rotate"></span> 恢复原方案</button><button class="btn dark" id="navToVenue"><span data-icon="navigation"></span> 终点导航</button></div>
+    <div class="offline-message" id="mapNetworkHint">地图可离线显示示意图；切换街道地图需要网络。</div>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  'use strict';
+  const ICONS={
+    compass:'<circle cx="12" cy="12" r="9"/><path d="m16 8-2.5 5.5L8 16l2.5-5.5L16 8Z"/>',
+    list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+    map:'<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15m6-12v15"/>',
+    bookmark:'<path d="M5 4h14v18l-7-5-7 5V4Z"/>',
+    pin:'<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/>',
+    check:'<path d="m5 12 5 5L20 7"/>',
+    flag:'<path d="M5 3v18M5 4c5-3 8 3 14 0v11c-6 3-9-3-14 0"/>',
+    clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/>',
+    coffee:'<path d="M3 8h14v7a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6V8Zm14 1h2a3 3 0 0 1 0 6h-2M6 2v3m5-3v3"/>',
+    food:'<path d="M5 3v8m4-8v8M3 3v5a4 4 0 0 0 8 0V3M7 11v10M18 3c-4 3-4 9-4 12h5V3Zm0 12v6"/>',
+    shop:'<path d="M4 9h16v12H4V9ZM3 9l2-6h14l2 6M9 9v12M15 9v12"/>',
+    train:'<rect x="5" y="3" width="14" height="16" rx="3"/><path d="M5 12h14M8 23l2-4m6 0 2 4M8 7h.01M16 7h.01"/>',
+    shield:'<path d="m12 2 9 4v6c0 5-4 9-9 10-5-1-9-5-9-10V6l9-4Z"/><path d="m8 12 3 3 5-6"/>',
+    alert:'<path d="m12 3 10 18H2L12 3Z"/><path d="M12 9v5m0 4h.01"/>',
+    navigation:'<path d="m3 11 18-9-9 19-2-8-7-2Z"/>',
+    download:'<path d="M12 2v14m-5-5 5 5 5-5M4 18v3h16v-3"/>',
+    'chevron-down':'<path d="m6 9 6 6 6-6"/>',
+    maximize:'<path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/>',
+    rotate:'<path d="M3 11a9 9 0 1 1 2 7m-2 2v-7h7"/>',
+    info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10h.01"/>',
+    location:'<circle cx="12" cy="12" r="9"/><path d="M12 8v4m0 4h.01"/>',
+    up:'<path d="m6 15 6-6 6 6"/>',
+    down:'<path d="m6 9 6 6 6-6"/>',
+    external:'<path d="M13 5h6v6m0-6-9 9M19 14v5H5V5h5"/>',
+    skip:'<circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/>',
+    calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/>'
+  };
+  function svgIcon(name,size=15){return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]||ICONS.pin}</svg>`}
+  document.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=svgIcon(el.dataset.icon));
+
+  const STOPS=[
+    {id:'west',name:'香港西九龙站',en:'Hong Kong West Kowloon Station',zone:'西九龙',cat:'交通',lat:22.304227,lng:114.1649207,duration:40,hours:'交通枢纽',address:'香港西九龙站',note:'09:00 抵达；预留入境、出站与整理时间。如提前完成出站，可加快后续节奏。',source:'来自 KML',fixed:true,mode:'交通'},
+    {id:'pause',name:'Pause It 旺角',en:'Pause It (Mong Kok)',zone:'旺角',cat:'咖啡',lat:22.3190213,lng:114.1716814,duration:35,open:540,close:1320,hours:'周日 09:00–22:00',address:'旺角奶路臣街17号 THE FOREST 地下 G11',note:'早午餐＋第一杯咖啡。官方最后点单约 21:30。',source:'官网营业时间',mode:'步行'},
+    {id:'knock',name:'Knockbox Coffee',en:'Knockbox Coffee Company',zone:'旺角',cat:'咖啡',lat:22.3176204,lng:114.1725583,duration:25,open:660,close:1080,hours:'周日 11:00–18:00',address:'旺角黑布街23号地下',note:'安排在 11:00 开门后，适合精品咖啡外带或短暂停留。',source:'近期商户资料',mode:'步行'},
+    {id:'labo',name:'21LABO',en:'21LABO',zone:'旺角',cat:'甜品',lat:22.3163576,lng:114.1681315,duration:25,open:540,close:1140,hours:'周日 09:00–19:00',address:'旺角山东街32B号 U Corner 地下 G4',note:'芝士蛋糕；件装蛋糕约 11:00 起供应，因此特意安排在中午前。',source:'当前店铺目录',mode:'步行'},
+    {id:'hak',name:'Hak Dei 黑地',en:'Hak Dei',zone:'旺角',cat:'购物',lat:22.3196007,lng:114.1681497,duration:30,open:720,close:1200,hours:'周日 12:00–20:00',address:'旺角上海街618号地下 G04c',note:'复古生活杂货、器皿、特色小物。',source:'当前商户资料',mode:'步行'},
+    {id:'boundary',name:'界限书店',en:'Boundary Bookstore',zone:'旺角',cat:'书店',lat:22.3189802,lng:114.1689699,duration:30,open:780,close:1320,hours:'周日 13:00–22:00',address:'旺角亚皆老街16号旺角商业大厦20楼A室',note:'独立书店在 20 楼，需预留寻找入口和等电梯时间。13:00 才营业。',source:'官网营业时间',mode:'步行'},
+    {id:'color',name:'Color Space 菲林店',en:'Color Space',zone:'旺角',cat:'胶片',lat:22.3163111,lng:114.1704643,duration:20,open:810,close:1200,hours:'社交简介列周日 13:30–20:00',address:'旺角西洋菜南街1A号百宝利商业中心10楼1008室',note:'⚠ 旧目录另有朗豪坊地址，须确认最新门市与 10月25日是否营业。KML 坐标可能来自旧门市，导航优先使用此文字地址。',source:'店方网站及社交资料；待确认',uncertain:true,mode:'步行'},
+    {id:'ima',name:'Ima Coffee 伊間珈琲',en:'Ima Coffee',zone:'土瓜湾',cat:'咖啡',lat:22.3120378,lng:114.1880153,duration:20,open:630,close:1110,hours:'媒体列周日 10:30–18:30',address:'红磡马头围道63号启岸地下15号铺',note:'⚠ 地图商户有永久停业标记，而 10月16日媒体仍列营业。仅店方确认后插入，否则会增加绕行。',source:'2026-10-16 报道与商户状态冲突',uncertain:true,optional:true,mode:'公共交通'},
+    {id:'vietnam',name:'1986 越南餐厅',en:'1986 Việt Nam',zone:'土瓜湾',cat:'正餐',lat:22.3226995,lng:114.1892342,duration:50,open:660,close:1320,hours:'周日 11:00–22:00',address:'土瓜湾北帝街60–62号东宝大楼地下60A铺',note:'将这家安排作下午正餐。若排队超过 15–20 分钟，应压缩其他购物停留。',source:'2026 年餐饮报道',mode:'公共交通'},
+    {id:'sang',name:'Sang Roastery 生昌焙豆',en:'Sang Roastery',zone:'土瓜湾',cat:'咖啡',lat:22.3204627,lng:114.1934739,duration:25,open:600,close:1110,hours:'周日 10:00–18:30',address:'土瓜湾道114号地下（十三街店）',note:'适合购买咖啡豆或简单手冲。官方周日营业至 18:30。',source:'官网营业时间',mode:'步行'},
+    {id:'airside',name:'AIRSIDE 商场',en:'AIRSIDE',zone:'启德',cat:'购物',lat:22.331322,lng:114.198142,duration:35,open:600,close:1320,hours:'商场周日 10:00–22:00',address:'启德协调道2号',note:'最后补给、休息、洗手间。建议 17:15 前出发去体育园；如出现延误可直接跳过。',source:'商场官网；个别商户不同',mode:'公共交通'},
+    {id:'stadium',name:'启德主场馆',en:'Kai Tak Stadium',zone:'启德',cat:'演出',lat:22.3221699,lng:114.1973555,duration:15,hours:'18:00 前到场 · 演出约 20:15',address:'启德体育园·启德主场馆（以票面入场闸口为准）',note:'硬性截止 18:00。提前确认指定入口、寄存及安检要求。活动方如调整时间，以官方公告为准。',source:'启德体育园官方活动页',fixed:true,mode:'步行'}
+  ];
+  const INDEX=Object.fromEntries(STOPS.map(s=>[s.id,s]));
+  const DEFAULT_ORDER=['west','pause','knock','labo','hak','boundary','color','ima','vietnam','sang','airside','stadium'];
+  const DEFAULT_DISABLED=['ima'];
+  const fmt=m=>{m=Math.round(m);return `${String(Math.floor(m/60)%24).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`};
+  const safe=n=>String(n).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
+  const clamp=(x,min,max)=>Math.min(max,Math.max(min,x));
+  let state={order:[...DEFAULT_ORDER],disabled:[...DEFAULT_DISABLED],checked:[],durations:{},delay:0,selected:'pause',zone:'all',query:'',mode:'schematic',sim:540};
+  try{const saved=JSON.parse(localStorage.getItem('hkFieldnotes_v2')||'null');if(saved&&Array.isArray(saved.order)&&saved.order.length===12&&new Set(saved.order).size===12&&saved.order.every(x=>INDEX[x])){state={...state,order:saved.order,disabled:(saved.disabled||[]).filter(x=>INDEX[x]&&!INDEX[x].fixed),checked:(saved.checked||[]).filter(x=>INDEX[x]),durations:saved.durations||{},delay:clamp(Number(saved.delay)||0,0,90),selected:INDEX[saved.selected]?saved.selected:'pause',zone:state.zone,sim:540}}}catch(e){}
+  let map=null,markers={},routeLine=null,scheduled=[],dragId=null,toastTimer=null,leafletLoading=null;
+  // Lazy-load the online map library only if the visitor asks for streets.
+  // The complete itinerary and SVG schematic are usable without a network connection.
+  function ensureLeaflet(){
+    if(typeof L!=='undefined')return Promise.resolve(true);
+    if(leafletLoading)return leafletLoading;
+    leafletLoading=new Promise(resolve=>{
+      const css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(css);
+      const script=document.createElement('script');script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';script.async=true;
+      script.onload=()=>resolve(typeof L!=='undefined');
+      script.onerror=()=>resolve(false);
+      document.head.appendChild(script);
+    });
+    return leafletLoading;
+  }
+  const $=id=>document.getElementById(id);
+  function save(){try{localStorage.setItem('hkFieldnotes_v2',JSON.stringify({order:state.order,disabled:state.disabled,checked:state.checked,durations:state.durations,delay:state.delay,selected:state.selected}))}catch(e){}}
+  function hav(a,b){const rad=Math.PI/180,dLat=(a.lat-b.lat)*rad,dLng=(a.lng-b.lng)*rad;const x=Math.sin(dLat/2)**2+Math.cos(a.lat*rad)*Math.cos(b.lat*rad)*Math.sin(dLng/2)**2;return 6371*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))}
+  const TRAVEL={'west>pause':30,'pause>knock':15,'knock>labo':15,'labo>hak':10,'hak>boundary':15,'boundary>color':10,'color>vietnam':40,'color>ima':30,'ima>vietnam':25,'vietnam>sang':15,'sang>airside':30,'airside>stadium':30};
+  function travel(a,b){const t=TRAVEL[a.id+'>'+b.id];if(t!==undefined)return t;const d=hav(a,b);if(b.id==='stadium'&&a.zone==='启德')return 30;if(a.zone!==b.zone){if(a.zone==='西九龙')return 30;if(a.zone==='旺角'&&b.zone==='土瓜湾')return 37;if(a.zone==='土瓜湾'&&b.zone==='启德')return 30;return Math.max(30,Math.round(d*11+16))}return clamp(Math.round(d*17+6),8,30)}
+  function activeStops(){return state.order.filter(x=>!state.disabled.includes(x)).map(x=>INDEX[x])}
+  function calculate(){const active=activeStops();let prev=null;const rows=[];for(const s of active){const move=prev?travel(prev.stop,s):0;let start=prev?prev.end+move:540; if(!prev){start=540;}else if(s.open!==undefined){start=Math.max(start,s.open)}let duration=clamp(Number(state.durations[s.id]??s.duration)||s.duration,5,110);if(s.id==='west')duration=s.duration+state.delay;if(s.fixed&&s.id==='stadium')duration=15;const row={stop:s,start,end:start+duration,travel:move,duration,wait:prev&&s.open!==undefined?Math.max(0,start-(prev.end+move)):0,prev:prev?.stop||null};rows.push(row);prev=row}scheduled=rows;return rows}
+  function arrivalRow(){return scheduled.find(x=>x.stop.id==='stadium')}
+  function showToast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2700)}
+  function iconFor(s){return ({咖啡:'coffee',甜品:'coffee',正餐:'food',购物:'shop',书店:'bookmark',胶片:'shop',交通:'train',演出:'flag'})[s.cat]||'pin'}
+  function chipFor(s){return ({咖啡:'coffee',甜品:'coffee',正餐:'food',购物:'shop',书店:'shop',胶片:'shop',交通:'fixed',演出:'event'})[s.cat]||'shop'}
+  function filteredRows(){return scheduled.filter(r=>(state.zone==='all'||r.stop.zone===state.zone||state.zone==='旺角'&&r.stop.zone==='西九龙')&&(!state.query||`${r.stop.name} ${r.stop.en} ${r.stop.address}`.toLowerCase().includes(state.query.toLowerCase())))}
+  function googleStop(s){let query=(s.id==='color')?s.address:`${s.lat},${s.lng}`;return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(query)}
+  function googleLeg(a,b){const origin=(a.id==='color')?a.address:`${a.lat},${a.lng}`;const dest=(b.id==='color')?b.address:`${b.lat},${b.lng}`;const mode=(a.zone===b.zone?'walking':'transit');return 'https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(origin)+'&destination='+encodeURIComponent(dest)+'&travelmode='+mode}
+  function legDescription(a,b){if(a.zone===b.zone)return '区内步行 · 计划预留';return a.zone+' → '+b.zone+' · 公共交通/步行预留'}
+  function renderTimeline(){const rows=filteredRows();const html=['<div class="timeline-line"></div>'];if(!rows.length)html.push('<div class="empty">没有匹配的行程地点。清除搜索或切换到“全部”。</div>');rows.forEach((r,i)=>{const s=r.stop,selected=state.selected===s.id,done=state.checked.includes(s.id),critical=s.id==='stadium',fullIndex=scheduled.indexOf(r);const prev=rows[i-1];if(prev&&prev.stop.zone!==s.zone)html.push(`<div class="transfer"><div></div><div class="t-rail"></div><div class="t-note"><span>${svgIcon('train',13)}　${safe(legDescription(prev.stop,s))}</span><strong>约 ${r.travel} 分</strong></div></div>`);
+    const chips=[`<span class="chip ${chipFor(s)}">${safe(s.cat)}</span>`,`<span class="chip">${safe(s.zone)}</span>`];if(s.fixed)chips.push('<span class="chip fixed">固定节点</span>');if(s.uncertain)chips.push('<span class="chip uncertain">待确认营业</span>');if(done)chips.push('<span class="chip open">已完成</span>');
+    const hoursWarning=s.close!==undefined&&r.start>=s.close?'⚠ 预计到达晚于关门':s.close!==undefined&&r.end>s.close?'⚠ 预计结束超过营业时间':r.wait>0?`需等待开门 ${r.wait} 分钟`:'';
+    if(hoursWarning)chips.push(`<span class="chip uncertain">${safe(hoursWarning)}</span>`);
+    const disabledMoving=s.fixed?'disabled':'';
+    html.push(`<div class="step" data-step="${s.id}"><div class="time-col"><div class="start">${fmt(r.start)}</div><div class="end">${fmt(r.end)}</div></div><div class="rail"><div class="rail-dot ${critical?'critical':''} ${done?'done':''}"></div></div><article class="stop-card ${selected?'selected':''} ${done?'done':''} ${s.fixed?'locked':''} ${s.uncertain?'uncertain':''}" data-id="${s.id}" draggable="${!s.fixed}">
+      <button class="stop-hit" data-action="select" data-id="${s.id}" aria-expanded="${selected}"><span class="stop-n">${String(fullIndex+1).padStart(2,'0')}</span><span class="stop-desc"><span class="stop-title" style="display:block">${safe(s.name)}</span><span class="stop-sub" style="display:block">${safe(s.en)} · ${r.duration} 分钟</span></span><span class="stop-chev">${svgIcon('chevron-down',16)}</span></button>
+      <div class="badges">${chips.join('')}</div><div class="stop-details"><div class="detail-row">${svgIcon('clock',14)}<span>${safe(s.hours)} · 预计停留 ${r.duration} 分钟</span></div><div class="detail-row">${svgIcon('pin',14)}<span>${safe(s.address)}</span></div><p class="detail-note">${safe(s.note)}</p><div class="duration"><span>停留时间（仅调整计划，不改变商家营业）</span><div class="counter"><button data-action="duration-minus" data-id="${s.id}" aria-label="减少停留5分钟" ${s.fixed?'disabled':''}>−</button><span>${r.duration} 分</span><button data-action="duration-plus" data-id="${s.id}" aria-label="增加停留5分钟" ${s.fixed?'disabled':''}>+</button></div></div><div class="actions"><a class="btn dark" target="_blank" rel="noopener noreferrer" href="${googleStop(s)}">${svgIcon('navigation',13)} 地图导航</a>${r.prev?`<a class="btn" target="_blank" rel="noopener noreferrer" href="${googleLeg(r.prev,s)}">${svgIcon('external',13)} 上一站→本站</a>`:''}<button class="btn" data-action="done" data-id="${s.id}">${svgIcon('check',13)} ${done?'取消完成':'标记完成'}</button>${!s.fixed?`<button class="btn soft" data-action="move-up" data-id="${s.id}" title="向上移动" aria-label="向上移动">${svgIcon('up',13)}</button><button class="btn soft" data-action="move-down" data-id="${s.id}" title="向下移动" aria-label="向下移动">${svgIcon('down',13)}</button><button class="btn warn" data-action="skip" data-id="${s.id}">${svgIcon('skip',13)} 跳过</button>`:''}</div></div></article></div>`)
+  });$('timeline').innerHTML=html.join('');const imOn=!state.disabled.includes('ima');$('candidateToggle').textContent=imOn?'从路线移除':'加入路线';$('candidateToggle').className='btn '+(imOn?'dark':'warn')}
+  function renderStats(){const active=scheduled.length;const done=scheduled.filter(x=>state.checked.includes(x.stop.id)).length;const arrival=arrivalRow().start;$('statCount').textContent=active;$('statDone').innerHTML=done+' <small>/ '+active+'</small>';$('statArrival').textContent=fmt(arrival);document.querySelector('.legend').textContent=`● ${active} 个计划停靠点`;
+    const slack=1080-arrival;const bl=$('bufferTime'),bar=$('bufferBar');bl.className='buffer-time '+(slack<0?'bad':slack<15?'warn':'');bl.textContent=slack<0?`晚于截止 ${-slack} 分钟`:slack===0?'恰好 18:00 到达':`余量 ${slack} 分钟`;$('bufferArrival').textContent=fmt(arrival)+' 预计到达';bar.style.width=clamp((slack+30)/100*100,0,100)+'%';bar.style.background=slack<0?'#b95047':slack<15?'#d89c56':'#6bac8b';let msg='按照当前停留时间估算。请额外考虑现场人流、转乘与安检。';const color=scheduled.find(x=>x.stop.id==='color'),airside=scheduled.find(x=>x.stop.id==='airside');if(slack<0)msg='⚠ 已超过 18:00 必达时间！请减少停留、跳过可选站并查看实时导航。';else if(slack<15)msg='⚠ 缓冲很小。建议提前结束购物，或使用演出保底方案。';if(color&&color.end>840)msg+=' 旺角预计离开晚于建议的 14:00。';if(airside&&airside.end>1035)msg+=' AIRSIDE 预计离开晚于建议的 17:15。';$('bufferMessage').textContent=msg}
+  function setSelected(id,scroll){if(!INDEX[id])return;state.selected=id;renderTimeline();renderMap();save();if(scroll){const el=document.querySelector(`[data-step="${id}"]`);el?.scrollIntoView({behavior:'smooth',block:'center'})}}
+  function renderSim(){const n=state.sim;$('simLabel').textContent=fmt(n);const row=scheduled.find(r=>n>=r.start&&n<r.end)||scheduled.find(r=>r.start>n);const end=arrivalRow().start;let note;if(n>=1080)note='18:00 抵达截止，计划必须已在主场馆。';else if(row&&n>=row.start)note=`${fmt(n)} · ${row.stop.name}（预计 ${fmt(row.end)} 结束）`;else if(row)note=`${fmt(n)} · 下一站 ${row.stop.name}，计划 ${fmt(row.start)} 开始`;else note=`${fmt(n)} · 当前计划已于 ${fmt(end)} 抵达主场馆`;$('simStatus').textContent=note; if(state.mode==='schematic')renderMap()}
+  function renderAll(){calculate();renderStats();renderTimeline();renderMap();renderSim();save()}
+  function leafletSetup(){if(typeof L==='undefined')return false;try{map=L.map('leafletMap',{zoomControl:false,scrollWheelZoom:true,attributionControl:true,preferCanvas:true});L.control.zoom({position:'topright'}).addTo(map);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',maxZoom:19}).addTo(map);map.on('tileerror',()=>{$('mapNetworkHint').textContent='街道瓦片暂时加载失败，可切回路线示意图（完全离线可看）。'});return true}catch(e){map=null;return false}}
+  function leafletRender(){if(!map)return;Object.values(markers).forEach(marker=>map.removeLayer(marker));markers={};if(routeLine){map.removeLayer(routeLine);routeLine=null}const coords=scheduled.map(r=>[r.stop.lat,r.stop.lng]);routeLine=L.polyline(coords,{color:'#de8059',weight:3.5,opacity:.85,dashArray:'6 9'}).addTo(map);scheduled.forEach((r,i)=>{const s=r.stop;const icon=L.divIcon({className:'',html:`<div class="pin-label ${state.selected===s.id?'selected':''} ${state.checked.includes(s.id)?'done':''}">${String(i+1).padStart(2,'0')}</div>`,iconSize:[30,30],iconAnchor:[15,15]});const marker=L.marker([s.lat,s.lng],{icon}).addTo(map).bindTooltip(`${s.name} · ${fmt(r.start)}`,{direction:'top',offset:[0,-12]});marker.on('click',()=>setSelected(s.id,true));markers[s.id]=marker});}
+  function fitMap(){if(map&&state.mode==='street'){const coords=scheduled.map(r=>[r.stop.lat,r.stop.lng]);map.fitBounds(L.latLngBounds(coords).pad(.11),{animate:true,maxZoom:14});}else{document.getElementById('schematicMap')?.scrollIntoView({behavior:'smooth',block:'nearest'})}}
+  function renderSchematic(){const root=$('schematicMap');const xmin=114.158,xmax=114.205,ymin=22.300,ymax=22.339;
+    const xy=s=>({x:38+(s.lng-xmin)/(xmax-xmin)*640,y:38+(ymax-s.lat)/(ymax-ymin)*410});
+    let path=scheduled.map((r,i)=>{const p=xy(r.stop);return (i?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)}).join(' ');
+    const markersHtml=scheduled.map((r,i)=>{const p=xy(r.stop),selected=state.selected===r.stop.id,complete=state.checked.includes(r.stop.id),past=r.end<state.sim;const color=selected?'#e67d56':complete?'#9abda6':'#2e6d59';return `<g class="svg-stop" data-map-stop="${r.stop.id}" tabindex="0" role="button" aria-label="${safe(r.stop.name)}" style="cursor:pointer"><circle cx="${p.x}" cy="${p.y}" r="${selected?17:14}" fill="#fff" stroke="${color}" stroke-width="${selected?4:3}" opacity="${past?.78:1}"/><text x="${p.x}" y="${p.y+3.5}" text-anchor="middle" font-size="10" font-weight="900" fill="${color}">${i+1}</text>${selected?`<g><rect x="${clamp(p.x-46,2,580)}" y="${Math.max(2,p.y-46)}" width="135" height="25" rx="8" fill="#24493f"/><text x="${clamp(p.x-38,10,588)}" y="${Math.max(2,p.y-46)+16}" font-size="10" fill="#fff">${safe(r.stop.name.slice(0,14))}</text></g>`:''}<title>${safe(r.stop.name)} ${fmt(r.start)}</title></g>`}).join('');
+    const svg=`<svg role="img" aria-label="香港收藏地点坐标路线示意图" viewBox="0 0 720 510" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="gridPat" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M 36 0 L 0 0 0 36" fill="none" stroke="#d0dfd3" stroke-width=".8"/></pattern><linearGradient id="waterGradient" x1="0" x2="1"><stop offset="0" stop-color="#d8e9e3"/><stop offset="1" stop-color="#e3efe8"/></linearGradient></defs><rect width="720" height="510" fill="#ecf1eb"/><rect width="720" height="510" fill="url(#gridPat)" opacity=".8"/><path d="M-10 450C110 367 182 377 229 405S367 483 459 444 626 422 745 492L745 530H-10Z" fill="url(#waterGradient)" stroke="#c9dcd3" stroke-width="1.8"/><g font-weight="900" fill="#bad0c2" letter-spacing="4" font-size="18" opacity=".74"><text x="67" y="372">WEST KOWLOON</text><text x="96" y="86">MONG KOK</text><text x="330" y="115">TO KWA WAN</text><text x="540" y="62">KAI TAK</text></g><g stroke="#c6d7c8" stroke-linecap="round" fill="none" opacity=".85"><path d="M20 155C200 205 246 186 700 245" stroke-width="2"/><path d="M132 16C175 121 252 182 265 414" stroke-width="3"/><path d="M415 10C435 109 529 226 590 480" stroke-width="2"/><path d="M-10 273C180 210 389 312 700 363" stroke-width="2"/><path d="M550 8C590 130 642 196 713 258" stroke-width="2"/></g><path d="${path}" fill="none" stroke="#fff" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/><path d="${path}" fill="none" stroke="#dc8662" stroke-width="3.5" stroke-dasharray="10 10" stroke-linejoin="round" stroke-linecap="round"/>${markersHtml}<rect x="22" y="464" width="240" height="26" rx="9" fill="#fff" opacity=".91"/><text x="36" y="481" fill="#698374" font-size="10" font-weight="700">地理位置示意 · 不是实际道路地图</text></svg>`;
+    root.innerHTML=svg;root.querySelectorAll('[data-map-stop]').forEach(el=>{el.addEventListener('click',()=>setSelected(el.dataset.mapStop,true));el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setSelected(el.dataset.mapStop,true)}})})
+  }
+  function renderMap(){renderSchematic();if(state.mode==='street'){if(!map&&typeof L!=='undefined')leafletSetup();if(map){$('leafletMap').style.display='block';leafletRender();map.invalidateSize();fitMap()}else{$('leafletMap').style.display='none';$('mapNetworkHint').textContent='街道地图目前无法加载，正在使用离线路线示意图。'}}else{$('leafletMap').style.display='none'}document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===state.mode));}
+  function modifyDuration(id,d){const s=INDEX[id];if(!s||s.fixed)return;const old=clamp(Number(state.durations[id]??s.duration)||s.duration,5,110);state.durations[id]=clamp(old+d,5,110);renderAll()}
+  function toggleSkipped(id){if(INDEX[id].fixed)return;const active=!state.disabled.includes(id);if(active){state.disabled.push(id);if(state.selected===id)state.selected='stadium';showToast('已跳过 '+INDEX[id].name+'，预计时间已重新计算')}else{state.disabled=state.disabled.filter(x=>x!==id);showToast('已加入 '+INDEX[id].name+'，请核对时间约束')}renderAll()}
+  function move(id,dir){const ix=state.order.indexOf(id);const current=INDEX[id],j=ix+dir;if(ix<0||j<0||j>=state.order.length||current.fixed||INDEX[state.order[j]].fixed||INDEX[state.order[j]].zone!==current.zone){showToast('仅支持在同一区域内移动非固定站点');return}const tmp=state.order[ix];state.order[ix]=state.order[j];state.order[j]=tmp;renderAll();showToast('行程顺序已调整；请重新核查开门时间')}
+  function exportFile(filename,content,type='text/plain;charset=utf-8'){const file=new Blob([content],{type});const url=URL.createObjectURL(file);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+  function asMarkdown(){const lines=['# 香港一日游｜2026-10-25（星期日）','','- **抵达**：09:00 香港西九龙站','- **硬截止**：18:00 前到达启德主场馆','- **说明**：时间为可调整的计划值，非实时交通。营业时间是周日常规资料，临时停业需确认。','',`**当前预计到场：${fmt(arrivalRow().start)}，剩余缓冲 ${1080-arrivalRow().start} 分钟。**`,'','| 时间 | 地点 | 营业时间 | 备注 |','|---|---|---|---|'];scheduled.forEach(r=>{const s=r.stop;lines.push(`| ${fmt(r.start)}–${fmt(r.end)} | ${s.name} | ${s.hours} | ${s.uncertain?'⚠ 待核对；':''}${s.note.replace(/\|/g,'/').replace(/\n/g,' ')} |`)});lines.push('','## 逐站导航','','打开下列链接查看当日实时导航，而不是依赖示意直线：','');scheduled.forEach((r,i)=>{lines.push(`- [${r.stop.name}](${googleStop(r.stop)})${i>0?` · [从上一站前往](${googleLeg(scheduled[i-1].stop,r.stop)})`:''}`)});lines.push('','## 核对提醒','','1. Color Space 的新地址与收藏坐标可能不同，请使用店方最新文字地址。','2. Ima Coffee 商户状态冲突，未确认时应跳过。','3. 13:00 前不要前往界限书店；17:15 以后不要继续在 AIRSIDE 停留。','4. The Weeknd 预计 20:15 开演，票面闸口、入场规则以活动当天官方公告为准。','','资料整理日期：2026-10-22。由 HK FIELDNOTES 自主生成，灵感来源于 TREK (https://github.com/liketrek/TREK)。');return lines.join('\n')+'\n'}
+  function toICS(){let list=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//HK FIELDNOTES//Hong Kong Day Plan//ZH','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:2026-10-25 香港一日行程'];function utc(n){const ms=Date.UTC(2026,9,25,0,n)-8*3600000;const d=new Date(ms);return d.toISOString().replace(/[-:]/g,'').replace(/\.000Z$/,'Z')}const escICS=x=>String(x).replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');scheduled.forEach((r,i)=>{const s=r.stop;list.push('BEGIN:VEVENT',`UID:hk1025-${s.id}@hk-fieldnotes.local`,`DTSTAMP:20261022T080000Z`,`DTSTART:${utc(r.start)}`,`DTEND:${utc(r.end)}`,`SUMMARY:${escICS(s.name)}`,`LOCATION:${escICS(s.address)}`,`DESCRIPTION:${escICS(s.hours+' | '+s.note)}`,'END:VEVENT')});list.push('END:VCALENDAR');return list.join('\r\n')+'\r\n'}
+  function toKML(){const rows=scheduled.map((r,i)=>`<Placemark><name>${safe((i+1)+'. '+r.stop.name)}</name><description>${safe(fmt(r.start)+'–'+fmt(r.end)+' | '+r.stop.hours)}</description><Point><coordinates>${r.stop.lng},${r.stop.lat},0</coordinates></Point></Placemark>`).join('');const coord=scheduled.map(r=>`${r.stop.lng},${r.stop.lat},0`).join(' ');return `<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>香港 2026-10-25 行程</name>${rows}<Placemark><name>路线示意直线（非实际道路）</name><LineString><tessellate>1</tessellate><coordinates>${coord}</coordinates></LineString></Placemark></Document></kml>`}
+  function doExport(name){if(name==='md')exportFile('香港_2026-10-25_交互行程.md',asMarkdown(),'text/markdown;charset=utf-8');if(name==='ics')exportFile('香港_2026-10-25_旅行日历.ics',toICS(),'text/calendar;charset=utf-8');if(name==='json')exportFile('香港_2026-10-25_行程数据.json',JSON.stringify({date:'2026-10-25',deadline:'18:00',source:'Hongkong.kml',mode:'estimated',stops:scheduled.map(r=>({...r.stop,start:fmt(r.start),end:fmt(r.end),duration:r.duration,checked:state.checked.includes(r.stop.id)}))},null,2),'application/json;charset=utf-8');if(name==='kml')exportFile('香港_2026-10-25_计划路线.kml',toKML(),'application/vnd.google-earth.kml+xml');if(name==='print')window.print();$('exportPopup').classList.remove('visible');$('exportToggle').setAttribute('aria-expanded','false');if(name!=='print')showToast('已生成 '+name.toUpperCase()+' 文件')}
+  $('timeline').addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id,act=b.dataset.action;if(act==='select')setSelected(id,false);if(act==='done'){state.checked=state.checked.includes(id)?state.checked.filter(x=>x!==id):[...state.checked,id];renderAll()}if(act==='skip')toggleSkipped(id);if(act==='move-up')move(id,-1);if(act==='move-down')move(id,1);if(act==='duration-minus')modifyDuration(id,-5);if(act==='duration-plus')modifyDuration(id,5)});
+  $('timeline').addEventListener('dragstart',e=>{const el=e.target.closest('.stop-card[draggable=true]');if(!el)return;dragId=el.dataset.id;el.classList.add('dragging');try{e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',dragId)}catch(err){}});
+  $('timeline').addEventListener('dragend',e=>{document.querySelectorAll('.dragging').forEach(x=>x.classList.remove('dragging'));dragId=null});
+  $('timeline').addEventListener('dragover',e=>{if(e.target.closest('.stop-card'))e.preventDefault()});
+  $('timeline').addEventListener('drop',e=>{e.preventDefault();const target=e.target.closest('.stop-card');if(!target||!dragId||target.dataset.id===dragId)return;const src=INDEX[dragId],dst=INDEX[target.dataset.id];if(src.fixed||dst.fixed||src.zone!==dst.zone){showToast('只能在同一区域调整非固定站点');return}let o=state.order.filter(x=>x!==dragId);const pos=o.indexOf(dst.id);o.splice(pos,0,dragId);state.order=o;renderAll();showToast('顺序已更新，预计时间重新计算')});
+  document.querySelectorAll('[data-zone]').forEach(b=>b.addEventListener('click',()=>{state.zone=b.dataset.zone;document.querySelectorAll('[data-zone]').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-selected',x===b?'true':'false')});renderTimeline()}));
+  $('searchInput').addEventListener('input',e=>{state.query=e.target.value;renderTimeline()});
+  $('candidateToggle').addEventListener('click',()=>toggleSkipped('ima'));
+  $('sidebarShowCandidate').addEventListener('click',()=>$('candidate').scrollIntoView({behavior:'smooth',block:'center'}));
+  document.querySelectorAll('[data-scroll]').forEach(el=>el.addEventListener('click',()=>$((el.dataset.scroll)).scrollIntoView({behavior:'smooth'})));
+  $('exportToggle').addEventListener('click',()=>{const box=$('exportPopup');box.classList.toggle('visible');$('exportToggle').setAttribute('aria-expanded',String(box.classList.contains('visible')))});
+  document.querySelectorAll('[data-export]').forEach(btn=>btn.addEventListener('click',()=>doExport(btn.dataset.export)));
+  document.addEventListener('click',e=>{if(!e.target.closest('.export-menu')){$('exportPopup').classList.remove('visible');$('exportToggle').setAttribute('aria-expanded','false')}});
+  document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{
+    state.mode=b.dataset.mode;renderMap();
+    if(state.mode==='street'&&!map){
+      showToast('正在连接街道地图；旅行示意图可继续离线使用');
+      ensureLeaflet().then(ok=>{if(state.mode==='street'){renderMap();showToast(ok?'已切换到 OpenStreetMap 街道地图':'地图资源加载失败，请使用路线示意图')}});
+    }
+  }));
+  $('mapFit').addEventListener('click',fitMap);
+  $('simRange').addEventListener('input',e=>{state.sim=Number(e.target.value);renderSim()});
+  $('safeMode').addEventListener('click',()=>{for(const id of ['color','ima','airside']){if(!state.disabled.includes(id))state.disabled.push(id)}state.selected='stadium';renderAll();showToast('已开启演出保底模式：跳过 Color Space、Ima Coffee、AIRSIDE')});
+  $('resetPlan').addEventListener('click',()=>{if(!window.confirm('恢复最初的 10月25日推荐行程？将清除勾选、跳过和停留调整。'))return;state={order:[...DEFAULT_ORDER],disabled:[...DEFAULT_DISABLED],checked:[],durations:{},delay:0,selected:'pause',zone:'all',query:'',mode:state.mode,sim:540};$('searchInput').value='';document.querySelectorAll('[data-zone]').forEach(b=>{b.classList.toggle('active',b.dataset.zone==='all');b.setAttribute('aria-selected',String(b.dataset.zone==='all'))});renderAll();showToast('已恢复最初行程')});
+  $('navToVenue').addEventListener('click',()=>{const s=INDEX.stadium;window.open(googleStop(s),'_blank','noopener,noreferrer')});
+  // A small manual delay control is injected as a real functioning option.
+  const delayWrap=document.createElement('div');delayWrap.className='duration';delayWrap.style.cssText='margin:11px 0 3px;padding:0 3px';delayWrap.innerHTML=`<span style="font-size:10px">出站/交通额外延误：<b id="delayValue">0 分</b></span><div class="counter"><button id="delayMinus" aria-label="减少额外延误5分钟">−</button><span style="min-width:22px">5m</span><button id="delayPlus" aria-label="增加额外延误5分钟">+</button></div>`;
+  $('mapNetworkHint').before(delayWrap);
+  function changeDelay(delta){state.delay=clamp(state.delay+delta,0,90);$('delayValue').textContent=state.delay+' 分';renderAll()}
+  $('delayMinus').addEventListener('click',()=>changeDelay(-5));$('delayPlus').addEventListener('click',()=>changeDelay(5));$('delayValue').textContent=state.delay+' 分';
+  try{const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Hong_Kong',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());const dict=Object.fromEntries(parts.map(p=>[p.type,p.value]));if(dict.year==='2026'&&dict.month==='10'&&dict.day==='25'){state.sim=clamp(Math.floor((Number(dict.hour)*60+Number(dict.minute))/5)*5,540,1080);$('simRange').value=state.sim}}catch(e){}
+  renderAll();
+})();
+</script>
+</body>
+</html>
